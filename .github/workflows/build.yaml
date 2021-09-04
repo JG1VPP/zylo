@@ -32,6 +32,41 @@ jobs:
         file: ${{matrix.asset}}
         repo_token: ${{secrets.GITHUB_TOKEN}}
         overwrite: true
+  BuildDemo:
+    needs: BuildZyLO
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+        - name: format
+        - name: latest
+        - name: rttest
+        - name: toasty
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2.1.3
+      with:
+        go-version: 1.16
+    - uses: egor-tensin/setup-mingw@v2
+      with:
+        platform: x64
+    - uses: actions/download-artifact@v2
+      with:
+        name: zbuild-ubuntu
+    - run: sudo chmod a+x zbuild-ubuntu
+    - run: ../../zbuild-ubuntu
+      working-directory: rules/${{matrix.name}}
+    - uses: crazy-max/ghaction-upx@v1
+      with:
+        files: rules/${{matrix.name}}/*.dll
+        args: --lzma -fq
+    - uses: svenstaro/upload-release-action@v2
+      with:
+        tag: nightly
+        file: rules/${{matrix.name}}/*.dll
+        file_glob: true
+        overwrite: true
+        repo_token: ${{secrets.GITHUB_TOKEN}}
   Documents:
     runs-on: ubuntu-latest
     steps:
