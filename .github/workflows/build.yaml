@@ -2,79 +2,47 @@ name: 'zbuild'
 on:
   push:
     branches:
-      - 'master'
+    - 'master'
 jobs:
-  BuildQxSL:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          repository: nextzlog/qxsl
-      - uses: ilammy/msvc-dev-cmd@v1
-      - uses: ayltai/setup-graalvm@v1
-        with:
-          java-version: 11
-          graalvm-version: 20.1.0
-      - uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: jar
-          gradle-version: 6.7
-      - run: java -jar build/libs/zylo.jar > qxsl.fmt
-      - run: native-image -cp build/libs/zylo.jar
-      - uses: crazy-max/ghaction-upx@v1
-        with:
-          files: qxsl.exe
-          args: --lzma -fq
-      - uses: actions/upload-artifact@v2
-        with:
-          name: qxsl.exe
-          path: qxsl.exe
-      - uses: actions/upload-artifact@v2
-        with:
-          name: qxsl.fmt
-          path: qxsl.fmt
   BuildZyLO:
-    needs: BuildQxSL
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
         include:
-          - os: macos-latest
-            asset_name: zbuild-macos
-          - os: ubuntu-latest
-            asset_name: zbuild-ubuntu
-          - os: windows-latest
-            asset_name: zbuild-windows.exe
+        - os: macos-latest
+          asset: zbuild-macos
+        - os: ubuntu-latest
+          asset: zbuild-ubuntu
+        - os: windows-latest
+          asset: zbuild-windows.exe
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-      - uses: actions/download-artifact@v2
-        with:
-          name: qxsl.exe
-      - uses: actions/download-artifact@v2
-        with:
-          name: qxsl.fmt
-      - run: rustc zbuild.rs -o ${{matrix.asset_name}}
-      - uses: svenstaro/upload-release-action@v2
-        with:
-          tag: zbuild
-          file: ${{matrix.asset_name}}
-          repo_token: ${{secrets.GITHUB_TOKEN}}
-          overwrite: true
+    - uses: actions/checkout@v2
+    - uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+    - run: rustc zbuild.rs -o ${{matrix.asset}}
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ${{matrix.asset}}
+        path: ${{matrix.asset}}
+    - uses: svenstaro/upload-release-action@v2
+      with:
+        tag: zbuild
+        file: ${{matrix.asset}}
+        repo_token: ${{secrets.GITHUB_TOKEN}}
+        overwrite: true
   Documents:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2.1.3
-        with:
-          go-version: 1.16
-      - run: go get github.com/robertkrimen/godocdown/godocdown
-      - run: mkdir doc && godocdown $(go list -m) > doc/README.md
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          enable_jekyll: true
-          github_token: ${{secrets.GITHUB_TOKEN}}
-          publish_dir: doc
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2.1.3
+      with:
+        go-version: 1.16
+    - run: go get github.com/robertkrimen/godocdown/godocdown
+    - run: mkdir doc && godocdown > doc/README.md
+    - uses: peaceiris/actions-gh-pages@v3
+      with:
+        enable_jekyll: true
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        publish_dir: doc
