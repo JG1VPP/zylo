@@ -195,7 +195,7 @@ type BinaryData []byte
 #### func (BinaryData) LoadBinaryData
 
 ```go
-func (source BinaryData) LoadBinaryData(log []QSO)
+func (bin BinaryData) LoadBinaryData() (log []QSO)
 ```
 バイト列をQSO構造体に変換します。
 
