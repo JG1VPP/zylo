@@ -129,12 +129,6 @@ var OnVerifyEvent = func(qso *QSO) {
 ```
 交信の得点やマルチプライヤを検査する時に呼び出されます。 編集中の交信記録に対し、必要なら何度でも呼び出されます。
 
-#### func  CtoD
-
-```go
-func CtoD(value string) []byte
-```
-
 #### func  DisplayModal
 
 ```go
@@ -148,12 +142,6 @@ func DisplayModal(msg string, args ...interface{})
 func DisplayToast(msg string, args ...interface{})
 ```
 指定された文字列を通知欄に表示します。
-
-#### func  DtoC
-
-```go
-func DtoC(field []byte) string
-```
 
 #### func  GetINI
 
@@ -196,6 +184,20 @@ func SetINI(section, key, value string)
 func UnicodeToShiftJIS(utf string) (string, error)
 ```
 指定された文字列をSJISに変換します。
+
+#### type BinaryData
+
+```go
+type BinaryData []byte
+```
+
+
+#### func (BinaryData) LoadBinaryData
+
+```go
+func (source BinaryData) LoadBinaryData(log []QSO)
+```
+バイト列をQSO構造体に変換します。
 
 #### type QSO
 
