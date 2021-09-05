@@ -229,7 +229,7 @@ func (qso *QSO) Delete()
 #### func (*QSO) DumpWithoutHead
 
 ```go
-func (qso *QSO) DumpWithoutHead(w io.Writer)
+func (qso *QSO) DumpWithoutHead(w io.Writer) (err error)
 ```
 QSO構造体をヘッダ情報なしで書き込みます。
 
@@ -299,7 +299,7 @@ func (qso *QSO) Insert()
 #### func (*QSO) LoadWithoutHead
 
 ```go
-func (qso *QSO) LoadWithoutHead(r io.Reader)
+func (qso *QSO) LoadWithoutHead(r io.Reader) (err error)
 ```
 QSO構造体をヘッダ情報なしで読み取ります。
 
