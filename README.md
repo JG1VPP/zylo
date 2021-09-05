@@ -185,20 +185,6 @@ func UnicodeToShiftJIS(utf string) (string, error)
 ```
 指定された文字列をSJISに変換します。
 
-#### type BinaryData
-
-```go
-type BinaryData []byte
-```
-
-
-#### func (BinaryData) LoadBinaryData
-
-```go
-func (bin BinaryData) LoadBinaryData() (log []QSO)
-```
-バイト列をQSO構造体に変換します。
-
 #### type QSO
 
 ```go
@@ -219,12 +205,12 @@ type QSO struct {
 
 zLogバイナリファイルのQSO構造体です。
 
-#### func  ToQSO
+#### func  LoadBinaryData
 
 ```go
-func ToQSO(ptr uintptr) (qso *QSO)
+func LoadBinaryData(bin []byte) (log []QSO)
 ```
-指定されたポインタからQSO構造体を読み取ります。
+バイト列をQSO構造体に変換します。
 
 #### func (*QSO) Delete
 
@@ -236,7 +222,7 @@ func (qso *QSO) Delete()
 #### func (*QSO) Dump
 
 ```go
-func (qso *QSO) Dump(locale *time.Location) []byte
+func (qso *QSO) Dump(zone *Location) []byte
 ```
 QSO構造体をバイト列に変換します。
 
@@ -292,7 +278,7 @@ func (qso *QSO) GetSent() string
 #### func (*QSO) GetTime
 
 ```go
-func (qso *QSO) GetTime(zone *time.Location) time.Time
+func (qso *QSO) GetTime(zone *Location) Time
 ```
 交信時刻を返します。
 
