@@ -196,7 +196,7 @@ func UnicodeToShiftJIS(utf string) (string, error)
 
 ```go
 type QSO struct {
-	ID   uint32
+	ID   int32
 	Mode byte
 	Band byte
 	Pow1 byte
@@ -206,7 +206,7 @@ type QSO struct {
 	Dupe bool
 
 	TxID byte
-	Pow2 uint32
+	Pow2 int32
 }
 ```
 
