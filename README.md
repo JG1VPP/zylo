@@ -143,6 +143,13 @@ func DisplayToast(msg string, args ...interface{})
 ```
 指定された文字列を通知欄に表示します。
 
+#### func  DumpZLO
+
+```go
+func DumpZLO(qso ...QSO) (bin []byte)
+```
+QSO列をヘッダ情報付きのバイト列に変換します。
+
 #### func  GetINI
 
 ```go
@@ -205,12 +212,12 @@ type QSO struct {
 
 zLogバイナリファイルのQSO構造体です。
 
-#### func  LoadBinaryData
+#### func  LoadZLO
 
 ```go
-func LoadBinaryData(bin []byte) (log []QSO)
+func LoadZLO(bin []byte) (logs []QSO)
 ```
-バイト列をQSO構造体に変換します。
+ヘッダ情報付きのバイト列をQSO列に変換します。
 
 #### func (*QSO) Delete
 
@@ -219,12 +226,12 @@ func (qso *QSO) Delete()
 ```
 指定された交信記録を削除します。
 
-#### func (*QSO) Dump
+#### func (*QSO) DumpWithoutHead
 
 ```go
-func (qso *QSO) Dump(zone *Location) []byte
+func (qso *QSO) DumpWithoutHead(w io.Writer)
 ```
-QSO構造体をバイト列に変換します。
+QSO構造体をヘッダ情報なしで書き込みます。
 
 #### func (*QSO) GetCall
 
@@ -278,7 +285,7 @@ func (qso *QSO) GetSent() string
 #### func (*QSO) GetTime
 
 ```go
-func (qso *QSO) GetTime(zone *Location) Time
+func (qso *QSO) GetTime() time.Time
 ```
 交信時刻を返します。
 
@@ -288,6 +295,13 @@ func (qso *QSO) GetTime(zone *Location) Time
 func (qso *QSO) Insert()
 ```
 指定された交信記録を追加します。
+
+#### func (*QSO) LoadWithoutHead
+
+```go
+func (qso *QSO) LoadWithoutHead(r io.Reader)
+```
+QSO構造体をヘッダ情報なしで読み取ります。
 
 #### func (*QSO) SetCall
 
