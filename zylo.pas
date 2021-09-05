@@ -57,6 +57,7 @@ type
 		AttachEvent: procedure(rule, config: PAnsiChar); stdcall;
 		AssignEvent: procedure(rule, config: PAnsiChar); stdcall;
 		DetachEvent: procedure(rule, config: PAnsiChar); stdcall;
+		OffsetEvent: procedure(off: integer); stdcall;
 		InsertEvent: procedure(ptr: pointer); stdcall;
 		DeleteEvent: procedure(ptr: pointer); stdcall;
 		VerifyEvent: procedure(ptr: pointer); stdcall;
@@ -357,6 +358,7 @@ begin
 	Enabled := True;
 	tag := DtoC(RuleName);
 	cfg := DtoC(RulePath);
+	for dll in Rules.Values do dll.OffsetEvent(UTCOffset);
 	for dll in Rules.Values do dll.AttachEvent(tag, cfg);
 	if RuleDLL <> nil then RuleDLL.AssignEvent(tag, cfg);
 end;
@@ -530,6 +532,7 @@ begin
 	AttachEvent := MustGetProc(hnd, 'zylo_attach_event');
 	AssignEvent := MustGetProc(hnd, 'zylo_assign_event');
 	DetachEvent := MustGetProc(hnd, 'zylo_detach_event');
+	OffsetEvent := MustGetProc(hnd, 'zylo_offset_event');
 	InsertEvent := MustGetProc(hnd, 'zylo_insert_event');
 	DeleteEvent := MustGetProc(hnd, 'zylo_delete_event');
 	VerifyEvent := MustGetProc(hnd, 'zylo_verify_event');
