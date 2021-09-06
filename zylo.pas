@@ -104,7 +104,7 @@ const
 (*zLog event handlers*)
 procedure zyloRuntimeLaunch;
 procedure zyloRuntimeFinish;
-procedure zyloContestUpdate(test, path: string);
+procedure zyloContestSwitch(test, path: string);
 procedure zyloContestOpened(test, path: string);
 procedure zyloContestClosed;
 procedure zyloLogUpdated(event: TzLogEvent; bQSO, aQSO: TQSO);
@@ -328,7 +328,7 @@ begin
 	FreeAndNil(ExportDialog);
 end;
 
-procedure zyloContestUpdate(test, path: string);
+procedure zyloContestSwitch(test, path: string);
 var
 	line: string;
 	link: string;
@@ -361,6 +361,8 @@ begin
 	for dll in Rules.Values do dll.OffsetEvent(UTCOffset);
 	for dll in Rules.Values do dll.AttachEvent(tag, cfg);
 	if RuleDLL <> nil then RuleDLL.AssignEvent(tag, cfg);
+	MyContest.ScoreForm.UpdateData;
+	MyContest.MultiForm.UpdateData;
 end;
 
 procedure zyloContestClosed;
