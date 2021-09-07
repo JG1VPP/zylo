@@ -39,6 +39,7 @@ jobs:
       matrix:
         include:
         - name: format
+        - name: hstest
         - name: latest
         - name: rttest
         - name: toasty
