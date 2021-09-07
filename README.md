@@ -16,7 +16,7 @@ const (
 	OTHER = 5
 )
 ```
-zLogバイナリファイルの通信方式の列挙子です。
+QSO構造体の通信方式の列挙子です。
 
 ```go
 const (
@@ -38,7 +38,7 @@ const (
 	G10UP = 15
 )
 ```
-zLogバイナリファイルの周波数帯の列挙子です。
+QSO構造体の周波数帯の列挙子です。
 
 ```go
 const ResponseCapacity = 256
@@ -210,7 +210,7 @@ type QSO struct {
 }
 ```
 
-zLogバイナリファイルのQSO構造体です。
+QSO構造体です。
 
 #### func  LoadZLO
 
