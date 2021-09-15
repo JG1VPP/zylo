@@ -150,13 +150,6 @@ func DumpZLO(qso ...QSO) (bin []byte)
 ```
 QSO列をヘッダ情報付きのバイト列に変換します。
 
-#### func  Encode
-
-```go
-func Encode(text string)
-```
-指定された文字列の信号を送信します。
-
 #### func  GetINI
 
 ```go
@@ -178,13 +171,6 @@ func HandleEditor(name string, handler func(int))
 ```
 指定された名前の記入欄にイベントハンドラを登録します。 起動時のみ登録できます。それ以後の登録は無視されます。
 
-#### func  Melody
-
-```go
-func Melody(freq int)
-```
-指定された周波数の音響を再生します。
-
 #### func  Query
 
 ```go
@@ -192,12 +178,26 @@ func Query(text string) string
 ```
 指定されたクエリで問合わせを行います。
 
+#### func  SendText
+
+```go
+func SendText(text string)
+```
+指定された文字列の信号を送信します。
+
 #### func  SetINI
 
 ```go
 func SetINI(section, key, value string)
 ```
 指定された設定の内容を変更します。
+
+#### func  SideTone
+
+```go
+func SideTone(freq int)
+```
+指定された周波数の音響を再生します。
 
 #### func  UnicodeToShiftJIS
 
