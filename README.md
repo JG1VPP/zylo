@@ -150,6 +150,13 @@ func DumpZLO(qso ...QSO) (bin []byte)
 ```
 QSO列をヘッダ情報付きのバイト列に変換します。
 
+#### func  Encode
+
+```go
+func Encode(text string)
+```
+指定された文字列の信号を送信します。
+
 #### func  GetINI
 
 ```go
@@ -170,6 +177,13 @@ func HandleButton(name string, handler func(int))
 func HandleEditor(name string, handler func(int))
 ```
 指定された名前の記入欄にイベントハンドラを登録します。 起動時のみ登録できます。それ以後の登録は無視されます。
+
+#### func  Melody
+
+```go
+func Melody(int freq)
+```
+指定された周波数の音響を再生します。
 
 #### func  Query
 
