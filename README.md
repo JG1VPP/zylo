@@ -181,7 +181,7 @@ func HandleEditor(name string, handler func(int))
 #### func  Melody
 
 ```go
-func Melody(freq int)
+func Melody(freq int16)
 ```
 指定された周波数の音響を再生します。
 
