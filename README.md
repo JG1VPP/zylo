@@ -178,26 +178,12 @@ func Query(text string) string
 ```
 指定されたクエリで問合わせを行います。
 
-#### func  SendText
-
-```go
-func SendText(text string)
-```
-指定された文字列の信号を送信します。
-
 #### func  SetINI
 
 ```go
 func SetINI(section, key, value string)
 ```
 指定された設定の内容を変更します。
-
-#### func  SideTone
-
-```go
-func SideTone(freq int)
-```
-指定された周波数の音響を再生します。
 
 #### func  UnicodeToShiftJIS
 
